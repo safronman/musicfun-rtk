@@ -8,24 +8,32 @@ export const playlistsApi = createApi({
     headers: {
       'API-KEY': import.meta.env.VITE_API_KEY,
     },
+    prepareHeaders: (headers) => {
+      headers.set('Authorization', `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`)
+      return headers
+    },
   }),
   endpoints: (build) => ({
     fetchPlaylists: build.query<PlaylistsResponse, void>({
-      query: () => {
-        return {
-          method: 'get',
-          url: `playlists`,
-        }
-      },
+      query: () => ({
+        method: 'get',
+        url: `playlists`,
+      }),
     }),
     createPlaylist: build.mutation<{ data: Playlist }, CreatePlaylistArgs>({
       query: (body) => ({
         url: 'playlists',
-        method: 'POST',
+        method: 'post',
         body,
+      }),
+    }),
+    deletePlaylist: build.mutation<void, string>({
+      query: (playlistId) => ({
+        url: `playlists/${playlistId}`,
+        method: 'delete',
       }),
     }),
   }),
 })
 
-export const { useFetchPlaylistsQuery, useCreatePlaylistMutation } = playlistsApi
+export const { useFetchPlaylistsQuery, useCreatePlaylistMutation, useDeletePlaylistMutation } = playlistsApi
