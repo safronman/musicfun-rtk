@@ -15,12 +15,12 @@ export type PlaylistAttributes = {
   addedAt: string
   updatedAt: string
   order: number
+  dislikesCount: number
+  likesCount: number
   tags: Tag[]
   images: Images
   user: User
   currentUserReaction: CurrentUserReaction
-  dislikesCount: number
-  likesCount: number
 }
 
 export type Tag = {
@@ -59,3 +59,9 @@ export const CurrentUserReaction = {
 } as const
 
 export type CurrentUserReaction = (typeof CurrentUserReaction)[keyof typeof CurrentUserReaction]
+
+// Arguments
+export type CreatePlaylistArgs = {
+  title: string
+  description: string
+}

@@ -1,4 +1,4 @@
-import type { PlaylistsResponse } from '@/features/playlists/api/playlistsApi.types.ts'
+import type { CreatePlaylistArgs, Playlist, PlaylistsResponse } from '@/features/playlists/api/playlistsApi.types.ts'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const playlistsApi = createApi({
@@ -18,7 +18,14 @@ export const playlistsApi = createApi({
         }
       },
     }),
+    createPlaylist: build.mutation<{ data: Playlist }, CreatePlaylistArgs>({
+      query: (body) => ({
+        url: 'playlists',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 })
 
-export const { useFetchPlaylistsQuery } = playlistsApi
+export const { useFetchPlaylistsQuery, useCreatePlaylistMutation } = playlistsApi
