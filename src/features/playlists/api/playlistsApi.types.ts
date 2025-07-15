@@ -61,6 +61,17 @@ export const CurrentUserReaction = {
 export type CurrentUserReaction = (typeof CurrentUserReaction)[keyof typeof CurrentUserReaction]
 
 // Arguments
+export type FetchPlaylistsArgs = {
+  pageNumber?: number
+  pageSize?: number
+  search?: string
+  sortBy?: 'addedAt' | 'likesCount'
+  sortDirection?: 'asc' | 'desc'
+  tagsIds?: string[]
+  userId?: string
+  trackId?: string
+}
+
 export type CreatePlaylistArgs = {
   title: string
   description: string

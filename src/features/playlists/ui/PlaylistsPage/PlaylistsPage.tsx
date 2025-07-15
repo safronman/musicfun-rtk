@@ -1,23 +1,24 @@
-import type { Playlist, UpdatePlaylistArgs } from '@/features/playlists/api/playlistsApi.types.ts'
-import { EditPlaylistForm } from '@/features/playlists/ui/PlaylistsPage/EditPlaylistForm/EditPlaylistForm.tsx'
-import { PlaylistItem } from '@/features/playlists/ui/PlaylistsPage/PlaylistItem/PlaylistItem.tsx'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import type { Playlist, UpdatePlaylistArgs } from '../../api/playlistsApi.types.ts'
+import { EditPlaylistForm } from './EditPlaylistForm/EditPlaylistForm.tsx'
+import { PlaylistItem } from './PlaylistItem/PlaylistItem.tsx'
 import { useDeletePlaylistMutation, useFetchPlaylistsQuery } from '../../api/playlistsApi.ts'
 import { CreatePlaylistForm } from './CreatePlaylistForm/CreatePlaylistForm.tsx'
 import s from './PlaylistsPage.module.css'
 
 export const PlaylistsPage = () => {
   const [playlistId, setPlaylistId] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
 
   const { register, handleSubmit, reset } = useForm<UpdatePlaylistArgs>()
 
-  const { data } = useFetchPlaylistsQuery()
+  const { data } = useFetchPlaylistsQuery({ search })
 
   const [deletePlaylist] = useDeletePlaylistMutation()
 
   const deletePlaylistHandler = (playlistId: string) => {
-    if (confirm('Вы уверены, что хотите удалить плейлист?')) {
+    if (confirm('Are you sure you want to delete the playlist?')) {
       deletePlaylist(playlistId)
     }
   }
@@ -39,6 +40,11 @@ export const PlaylistsPage = () => {
     <div className={s.container}>
       <h1>Playlists page</h1>
       <CreatePlaylistForm />
+      <input
+        type="search"
+        placeholder={'Search playlist by title'}
+        onChange={(e) => setSearch(e.currentTarget.value)}
+      />
       <div className={s.items}>
         {data?.data.map((playlist) => {
           const isEditing = playlistId === playlist.id
