@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router'
+import { PageNotFound } from '@/common/components'
 import { MainPage } from '@/app/ui/MainPage.tsx'
-import { PageNotFound } from '@/common/components/PageNotFound/PageNotFound.tsx'
 import { PlaylistsPage } from '@/features/playlists/ui/PlaylistsPage/PlaylistsPage.tsx'
 
 export const Path = {
