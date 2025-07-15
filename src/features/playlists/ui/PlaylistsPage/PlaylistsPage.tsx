@@ -16,7 +16,7 @@ export const PlaylistsPage = () => {
   const [search, setSearch] = useState('')
   const debounceSearch = useDebounceValue(search)
 
-  const { data } = useFetchPlaylistsQuery({ search: debounceSearch })
+  const { data, isLoading } = useFetchPlaylistsQuery({ search: debounceSearch })
 
   const [deletePlaylist] = useDeletePlaylistMutation()
 
@@ -49,6 +49,7 @@ export const PlaylistsPage = () => {
         onChange={(e) => setSearch(e.currentTarget.value)}
       />
       <div className={s.items}>
+        {!data?.data.length && !isLoading && <h2>Playlists not found</h2>}
         {data?.data.map((playlist) => {
           const isEditing = playlistId === playlist.id
 
