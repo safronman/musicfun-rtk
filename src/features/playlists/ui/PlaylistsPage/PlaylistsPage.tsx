@@ -1,3 +1,4 @@
+import { Pagination } from '@/common/components'
 import { useDebounceValue } from '@/common/hooks'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -11,12 +12,14 @@ import s from './PlaylistsPage.module.css'
 export const PlaylistsPage = () => {
   const [playlistId, setPlaylistId] = useState<string | null>(null)
 
+  const [currentPage, setCurrentPage] = useState(1)
+
   const { register, handleSubmit, reset } = useForm<UpdatePlaylistArgs>()
 
   const [search, setSearch] = useState('')
   const debounceSearch = useDebounceValue(search)
 
-  const { data, isLoading } = useFetchPlaylistsQuery({ search: debounceSearch })
+  const { data, isLoading } = useFetchPlaylistsQuery({ search: debounceSearch, pageNumber: currentPage, pageSize: 2 })
 
   const [deletePlaylist] = useDeletePlaylistMutation()
 
@@ -74,6 +77,7 @@ export const PlaylistsPage = () => {
           )
         })}
       </div>
+      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} pagesCount={data?.meta.pagesCount || 1} />
     </div>
   )
 }
