@@ -1,12 +1,12 @@
 import { Pagination } from '@/common/components'
 import { useDebounceValue } from '@/common/hooks'
-import { useState } from 'react'
+import { type ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDeletePlaylistMutation, useFetchPlaylistsQuery } from '../../api/playlistsApi.ts'
 import type { Playlist, UpdatePlaylistArgs } from '../../api/playlistsApi.types.ts'
+import { CreatePlaylistForm } from './CreatePlaylistForm/CreatePlaylistForm.tsx'
 import { EditPlaylistForm } from './EditPlaylistForm/EditPlaylistForm.tsx'
 import { PlaylistItem } from './PlaylistItem/PlaylistItem.tsx'
-import { useDeletePlaylistMutation, useFetchPlaylistsQuery } from '../../api/playlistsApi.ts'
-import { CreatePlaylistForm } from './CreatePlaylistForm/CreatePlaylistForm.tsx'
 import s from './PlaylistsPage.module.css'
 
 export const PlaylistsPage = () => {
@@ -43,8 +43,13 @@ export const PlaylistsPage = () => {
     }
   }
 
-  const changePageSize = (size: number) => {
+  const changePageSizeHandler = (size: number) => {
     setPageSize(size)
+    setCurrentPage(1)
+  }
+
+  const searchPlaylistHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.currentTarget.value)
     setCurrentPage(1)
   }
 
@@ -52,11 +57,7 @@ export const PlaylistsPage = () => {
     <div className={s.container}>
       <h1>Playlists page</h1>
       <CreatePlaylistForm />
-      <input
-        type="search"
-        placeholder={'Search playlist by title'}
-        onChange={(e) => setSearch(e.currentTarget.value)}
-      />
+      <input type="search" placeholder={'Search playlist by title'} onChange={searchPlaylistHandler} />
       <div className={s.items}>
         {!data?.data.length && !isLoading && <h2>Playlists not found</h2>}
         {data?.data.map((playlist) => {
@@ -88,7 +89,7 @@ export const PlaylistsPage = () => {
         setCurrentPage={setCurrentPage}
         pagesCount={data?.meta.pagesCount || 1}
         pageSize={pageSize}
-        changePageSize={changePageSize}
+        changePageSize={changePageSizeHandler}
       />
     </div>
   )
