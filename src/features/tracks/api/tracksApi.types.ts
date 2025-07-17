@@ -26,8 +26,8 @@ export type TracksMeta = {
   nextCursor: string | null
   page: number
   pageSize: number
-  totalCount: number
-  pagesCount: number
+  totalCount: number | null
+  pagesCount: number | null
 }
 
 export type TrackAttributes = {

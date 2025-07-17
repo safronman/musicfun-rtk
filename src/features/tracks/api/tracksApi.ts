@@ -1,16 +1,21 @@
 import { baseApi } from '@/app/api/baseApi.ts'
-import type { FetchTracksArgs, FetchTracksResponse } from './tracksApi.types.ts'
+import type { FetchTracksResponse } from './tracksApi.types.ts'
 
 export const tracksApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    fetchTracks: build.infiniteQuery<FetchTracksResponse, FetchTracksArgs, number>({
+    fetchTracks: build.infiniteQuery<FetchTracksResponse, void, string | undefined>({
       infiniteQueryOptions: {
-        initialPageParam: 1,
-        getNextPageParam: (_lastPage, _allPages, lastPageParam) => {
-          return lastPageParam + 1
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage) => {
+          return lastPage.meta.nextCursor || undefined
         },
       },
-      query: ({ queryArg }) => ({ url: 'playlists/tracks', params: queryArg }),
+      query: ({ pageParam }) => {
+        return {
+          url: 'playlists/tracks',
+          params: { cursor: pageParam, pageSize: 5, paginationType: 'cursor' },
+        }
+      },
     }),
   }),
 })
