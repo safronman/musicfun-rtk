@@ -1,12 +1,22 @@
+import type { CurrentUserReaction } from '@/common/enums'
+import type { Images, Tag, User } from '@/common/types'
+
 export type PlaylistsResponse = {
-  data: Playlist[]
-  meta: Meta
+  data: PlaylistData[]
+  meta: PlaylistMeta
 }
 
-export type Playlist = {
+export type PlaylistData = {
   id: string
   type: 'playlists'
   attributes: PlaylistAttributes
+}
+
+export type PlaylistMeta = {
+  page: number
+  pageSize: number
+  totalCount: number
+  pagesCount: number
 }
 
 export type PlaylistAttributes = {
@@ -22,43 +32,6 @@ export type PlaylistAttributes = {
   user: User
   currentUserReaction: CurrentUserReaction
 }
-
-export type Tag = {
-  id: string
-  name: string
-}
-
-export type Images = {
-  main: Cover[]
-}
-
-export type Cover = {
-  type: 'original' | 'medium' | 'thumbnail'
-  width: number
-  height: number
-  fileSize: number
-  url: string
-}
-
-export type User = {
-  id: string
-  name: string
-}
-
-export type Meta = {
-  page: number
-  pageSize: number
-  totalCount: number
-  pagesCount: number
-}
-
-export const CurrentUserReaction = {
-  Like: 1,
-  Dislike: -1,
-  None: 0,
-} as const
-
-export type CurrentUserReaction = (typeof CurrentUserReaction)[keyof typeof CurrentUserReaction]
 
 // Arguments
 export type FetchPlaylistsArgs = {

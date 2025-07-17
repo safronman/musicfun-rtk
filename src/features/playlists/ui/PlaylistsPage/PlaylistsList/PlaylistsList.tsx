@@ -1,5 +1,5 @@
 import { useDeletePlaylistMutation } from '@/features/playlists/api/playlistsApi.ts'
-import type { Playlist, UpdatePlaylistArgs } from '@/features/playlists/api/playlistsApi.types.ts'
+import type { PlaylistData, UpdatePlaylistArgs } from '@/features/playlists/api/playlistsApi.types.ts'
 import { EditPlaylistForm } from '@/features/playlists/ui/PlaylistsPage/EditPlaylistForm/EditPlaylistForm.tsx'
 import { PlaylistItem } from '@/features/playlists/ui/PlaylistsPage/PlaylistItem/PlaylistItem.tsx'
 import { useState } from 'react'
@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import s from './PlaylistsList.module.css'
 
 type Props = {
-  playlists: Playlist[]
+  playlists: PlaylistData[]
   isPlaylistsLoading: boolean
 }
 
@@ -24,7 +24,7 @@ export const PlaylistsList = ({ playlists, isPlaylistsLoading }: Props) => {
     }
   }
 
-  const editPlaylistHandler = (playlist: Playlist | null) => {
+  const editPlaylistHandler = (playlist: PlaylistData | null) => {
     if (playlist) {
       setPlaylistId(playlist.id)
       reset({

@@ -1,11 +1,11 @@
 import { PlaylistDescription } from './PlaylistDescription/PlaylistDescription.tsx'
 import { PlaylistCover } from './PlaylistCover/PlaylistCover.tsx'
-import type { Playlist } from '../../../api/playlistsApi.types.ts'
+import type { PlaylistData } from '../../../api/playlistsApi.types.ts'
 
 type Props = {
-  playlist: Playlist
+  playlist: PlaylistData
   deletePlaylist: (playlistId: string) => void
-  editPlaylist: (playlist: Playlist) => void
+  editPlaylist: (playlist: PlaylistData) => void
 }
 
 export const PlaylistItem = ({ playlist, editPlaylist, deletePlaylist }: Props) => {
