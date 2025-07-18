@@ -1,6 +1,6 @@
 import { Pagination } from '@/common/components'
 import { useDebounceValue } from '@/common/hooks'
-import { PlaylistsList } from '@/features/playlists/ui/PlaylistsPage/PlaylistsList/PlaylistsList.tsx'
+import { PlaylistsList } from './PlaylistsList/PlaylistsList.tsx'
 import { type ChangeEvent, useState } from 'react'
 import { useFetchPlaylistsQuery } from '../../api/playlistsApi.ts'
 import { CreatePlaylistForm } from './CreatePlaylistForm/CreatePlaylistForm.tsx'
