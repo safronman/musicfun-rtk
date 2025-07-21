@@ -1,9 +1,9 @@
 import defaultCover from '@/assets/images/default-playlist-cover.png'
+import type { Images } from '@/common/types'
 import {
   useDeletePlaylistCoverMutation,
   useUploadPlaylistCoverMutation,
 } from '@/features/playlists/api/playlistsApi.ts'
-import type { Images } from '@/features/playlists/api/playlistsApi.types.ts'
 import { toast } from 'react-toastify'
 import s from './PlaylistCover.module.css'
 import type { ChangeEvent } from 'react'
