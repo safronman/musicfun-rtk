@@ -11,7 +11,7 @@ export const baseApi = createApi({
     const result = await fetchBaseQuery({
       baseUrl: import.meta.env.VITE_BASE_URL,
       headers: {
-        // 'API-KEY': import.meta.env.VITE_API_KEY,
+        'API-KEY': import.meta.env.VITE_API_KEY,
       },
       prepareHeaders: (headers) => {
         headers.set('Authorization', `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`)
@@ -21,9 +21,16 @@ export const baseApi = createApi({
 
     if (result.error) {
       switch (result.error.status) {
+        case 'FETCH_ERROR':
+        case 'PARSING_ERROR':
+        case 'CUSTOM_ERROR':
+        case 'TIMEOUT_ERROR':
+          toast(result.error.error, { type: 'error', theme: 'colored' })
+          break
+
         case 404:
           if (isErrorWithProperty(result.error.data, 'error')) {
-            toast(JSON.stringify(result.error.data.error), { type: 'error', theme: 'colored' })
+            toast(result.error.data.error, { type: 'error', theme: 'colored' })
           } else {
             toast(JSON.stringify(result.error.data), { type: 'error', theme: 'colored' })
           }
@@ -31,7 +38,7 @@ export const baseApi = createApi({
 
         case 429:
           if (isErrorWithProperty(result.error.data, 'message')) {
-            toast(JSON.stringify(result.error.data.message), { type: 'error', theme: 'colored' })
+            toast(result.error.data.message, { type: 'error', theme: 'colored' })
           } else {
             toast(JSON.stringify(result.error.data), { type: 'error', theme: 'colored' })
           }
