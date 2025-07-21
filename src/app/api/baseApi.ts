@@ -1,3 +1,4 @@
+import { isErrorWithProperty } from '@/common/utils'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { toast } from 'react-toastify'
 
@@ -10,7 +11,7 @@ export const baseApi = createApi({
     const result = await fetchBaseQuery({
       baseUrl: import.meta.env.VITE_BASE_URL,
       headers: {
-        'API-KEY': import.meta.env.VITE_API_KEY,
+        // 'API-KEY': import.meta.env.VITE_API_KEY,
       },
       prepareHeaders: (headers) => {
         headers.set('Authorization', `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`)
@@ -21,11 +22,19 @@ export const baseApi = createApi({
     if (result.error) {
       switch (result.error.status) {
         case 404:
-          toast((result.error.data as { error: string }).error, { type: 'error', theme: 'colored' })
+          if (isErrorWithProperty(result.error.data, 'error')) {
+            toast(JSON.stringify(result.error.data.error), { type: 'error', theme: 'colored' })
+          } else {
+            toast(JSON.stringify(result.error.data), { type: 'error', theme: 'colored' })
+          }
           break
 
         case 429:
-          toast((result.error.data as { message: string }).message, { type: 'error', theme: 'colored' })
+          if (isErrorWithProperty(result.error.data, 'message')) {
+            toast(JSON.stringify(result.error.data.message), { type: 'error', theme: 'colored' })
+          } else {
+            toast(JSON.stringify(result.error.data), { type: 'error', theme: 'colored' })
+          }
           break
 
         default:
