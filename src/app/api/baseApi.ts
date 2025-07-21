@@ -1,4 +1,5 @@
-import { isErrorWithProperty } from '@/common/utils'
+import { isErrorWithDetailArray, isErrorWithProperty } from '@/common/utils'
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { toast } from 'react-toastify'
 
@@ -26,6 +27,14 @@ export const baseApi = createApi({
         case 'CUSTOM_ERROR':
         case 'TIMEOUT_ERROR':
           toast(result.error.error, { type: 'error', theme: 'colored' })
+          break
+
+        case 403:
+          if (isErrorWithDetailArray(result.error.data)) {
+            toast(result.error.data.errors[0].detail, { type: 'error', theme: 'colored' })
+          } else {
+            toast(JSON.stringify(result.error.data), { type: 'error', theme: 'colored' })
+          }
           break
 
         case 404:
