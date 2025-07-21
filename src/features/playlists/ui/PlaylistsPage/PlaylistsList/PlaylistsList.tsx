@@ -19,10 +19,9 @@ export const PlaylistsList = ({ playlists, isPlaylistsLoading }: Props) => {
   const [deletePlaylist] = useDeletePlaylistMutation()
 
   const deletePlaylistHandler = (playlistId: string) => {
-    deletePlaylist(playlistId)
-    // if (confirm('Are you sure you want to delete the playlist?')) {
-    //   deletePlaylist(playlistId)
-    // }
+    if (confirm('Are you sure you want to delete the playlist?')) {
+      deletePlaylist(playlistId)
+    }
   }
 
   const editPlaylistHandler = (playlist: PlaylistData | null) => {
