@@ -15,27 +15,6 @@ export const PlaylistsPage = () => {
 
   const { data, isLoading } = useFetchPlaylistsQuery({ search: debounceSearch, pageNumber: currentPage, pageSize })
 
-  // useEffect(() => {
-  //   if (!error) return
-  //   if ('status' in error) {
-  //     // FetchBaseQueryError
-  //     const errMsg =
-  //       'error' in error
-  //         ? error.error
-  //         : (
-  //             error.data as {
-  //               error: string
-  //             }
-  //           ).error ||
-  //           (error.data as { message: string }).message ||
-  //           'Some error occurred'
-  //     toast(errMsg, { type: 'error', theme: 'colored' })
-  //   } else {
-  //     // SerializedError
-  //     toast(error.message || 'Some error occurred', { type: 'error', theme: 'colored' })
-  //   }
-  // }, [error])
-
   const changePageSizeHandler = (size: number) => {
     setPageSize(size)
     setCurrentPage(1)
