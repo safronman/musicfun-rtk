@@ -1,10 +1,12 @@
 import { baseApi } from '@/app/api/baseApi.ts'
+import { AUTH_KEYS } from '@/common/constants/constants.ts'
 import type { AuthTokensResponse, LoginArgs, MeResponse } from './authApi.types.ts'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getMe: build.query<MeResponse, void>({
       query: () => `auth/me`,
+      providesTags: ['Auth'],
     }),
     login: build.mutation<AuthTokensResponse, LoginArgs>({
       query: (payload) => ({
@@ -12,22 +14,18 @@ export const authApi = baseApi.injectEndpoints({
         method: 'post',
         body: { ...payload, accessTokenTTL: '3m' },
       }),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled
+        localStorage.setItem(AUTH_KEYS.accessToken, data.accessToken)
+        localStorage.setItem(AUTH_KEYS.refreshToken, data.refreshToken)
+        // Invalidate after saving tokens
+        dispatch(authApi.util.invalidateTags(['Auth']))
+      },
     }),
   }),
 })
 
 export const { useGetMeQuery, useLoginMutation } = authApi
-
-// login
-// async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-//   try {
-//     const { data } = await queryFulfilled
-//     localStorage.setItem(localStorageKeys.refreshToken, data.refreshToken)
-//     localStorage.setItem(localStorageKeys.accessToken, data.accessToken)
-//     // Инвалидируем ПОСЛЕ сохранения токенов
-//     dispatch(authApi.util.invalidateTags(['User']))
-//   } catch {}
-// },
 
 // logout: build.mutation<void, void>({
 //   query: () => ({
