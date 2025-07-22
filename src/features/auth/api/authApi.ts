@@ -1,5 +1,5 @@
 import { baseApi } from '@/app/api/baseApi.ts'
-import { AUTH_KEYS } from '@/common/constants/constants.ts'
+import { AUTH_KEYS } from '@/common/constants'
 import type { AuthTokensResponse, LoginArgs, MeResponse } from './authApi.types.ts'
 
 export const authApi = baseApi.injectEndpoints({
@@ -22,26 +22,19 @@ export const authApi = baseApi.injectEndpoints({
         dispatch(authApi.util.invalidateTags(['Auth']))
       },
     }),
+    logout: build.mutation<void, void>({
+      query: () => {
+        const refreshToken = localStorage.getItem(AUTH_KEYS.refreshToken)
+        return { url: 'auth/logout', method: 'post', body: { refreshToken } }
+      },
+      async onQueryStarted(_args, { queryFulfilled, dispatch }) {
+        await queryFulfilled
+        localStorage.removeItem(AUTH_KEYS.accessToken)
+        localStorage.removeItem(AUTH_KEYS.refreshToken)
+        dispatch(baseApi.util.resetApiState())
+      },
+    }),
   }),
 })
 
-export const { useGetMeQuery, useLoginMutation } = authApi
-
-// logout: build.mutation<void, void>({
-//   query: () => ({
-//     url: `${authEndpoint}/logout`,
-//     method: 'POST',
-//     body: {
-//       refreshToken: localStorage.getItem(localStorageKeys.refreshToken)!,
-//     },
-//   }),
-//   async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-//     try {
-//       await queryFulfilled
-//       localStorage.removeItem(localStorageKeys.accessToken)
-//       localStorage.removeItem(localStorageKeys.refreshToken)
-//       await dispatch(authApi.util.resetApiState())
-//     } catch {}
-//   },
-//   invalidatesTags: ['User'],
-// }),
+export const { useGetMeQuery, useLoginMutation, useLogoutMutation } = authApi
