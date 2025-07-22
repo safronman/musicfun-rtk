@@ -1,9 +1,9 @@
 import { baseApi } from '@/app/api/baseApi.ts'
-import type { AuthTokensResponse, LoginArgs, MeResponseResponse } from './authApi.types.ts'
+import type { AuthTokensResponse, LoginArgs, MeResponse } from './authApi.types.ts'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getMe: build.query<MeResponseResponse, void>({
+    getMe: build.query<MeResponse, void>({
       query: () => `auth/me`,
     }),
     login: build.mutation<AuthTokensResponse, LoginArgs>({

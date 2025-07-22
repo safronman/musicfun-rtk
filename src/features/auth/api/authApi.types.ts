@@ -1,4 +1,4 @@
-export type MeResponseResponse = {
+export type MeResponse = {
   userId: string
   login: string
 }
