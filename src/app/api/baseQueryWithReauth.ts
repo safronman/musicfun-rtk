@@ -13,6 +13,8 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
   api,
   extraOptions,
 ) => {
+  // await new Promise((resolve) => setTimeout(resolve, 2000))
+
   // Wait for any ongoing refresh token operation to finish (if mutex is locked)
   await mutex.waitForUnlock()
 
