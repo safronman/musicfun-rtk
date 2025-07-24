@@ -5,7 +5,7 @@ import {
   type playlistMetaSchema,
   playlistsResponseSchema,
 } from '../model/playlists.schemas.ts'
-import * as z from 'zod/mini'
+import * as z from 'zod'
 
 export type PlaylistMeta = z.infer<typeof playlistMetaSchema>
 export type PlaylistAttributes = z.infer<typeof playlistAttributesSchema>

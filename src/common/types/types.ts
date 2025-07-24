@@ -1,4 +1,4 @@
-import * as z from 'zod/mini'
+import * as z from 'zod'
 import { coverSchema, currentUserReactionSchema, imagesSchema, tagSchema, userSchema } from '@/common/schemas'
 
 export type Tag = z.infer<typeof tagSchema>

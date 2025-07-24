@@ -1,4 +1,4 @@
-import * as z from 'zod/mini'
+import * as z from 'zod'
 import { CurrentUserReaction } from '@/common/enums'
 
 export const tagSchema = z.object({
@@ -13,9 +13,9 @@ export const userSchema = z.object({
 
 export const coverSchema = z.object({
   type: z.literal(['original', 'medium', 'thumbnail']),
-  width: z.int().check(z.positive()),
-  height: z.int().check(z.positive()),
-  fileSize: z.int().check(z.positive()),
+  width: z.int().positive(),
+  height: z.int().positive(),
+  fileSize: z.int().positive(),
   url: z.string(),
 })
 
