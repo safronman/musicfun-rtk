@@ -1,5 +1,5 @@
 import { baseApi } from '@/app/api/baseApi.ts'
-import type { Images } from '@/common/types'
+import { imagesSchema } from '@/common/schemas'
 import { withZodCatch } from '@/common/utils'
 import { playlistCreateResponseSchema, playlistsResponseSchema } from '../model/playlists.schemas.ts'
 import type { CreatePlaylistArgs, FetchPlaylistsArgs, UpdatePlaylistArgs } from './playlistsApi.types.ts'
@@ -58,8 +58,8 @@ export const playlistsApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Playlist'],
     }),
-    uploadPlaylistCover: build.mutation<Images, { playlistId: string; file: File }>({
-      query: ({ playlistId, file }) => {
+    uploadPlaylistCover: build.mutation({
+      query: ({ playlistId, file }: { playlistId: string; file: File }) => {
         const formData = new FormData()
         formData.append('file', file)
         return {
@@ -68,6 +68,7 @@ export const playlistsApi = baseApi.injectEndpoints({
           body: formData,
         }
       },
+      ...withZodCatch(imagesSchema),
       invalidatesTags: ['Playlist'],
     }),
     deletePlaylistCover: build.mutation<void, { playlistId: string }>({

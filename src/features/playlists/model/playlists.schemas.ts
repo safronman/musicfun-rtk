@@ -11,7 +11,6 @@ export const createPlaylistSchema = z.object({
 
 export const playlistMetaSchema = z.object({
   page: z.int().positive(),
-  // page: z.string(),
   pageSize: z.int().positive(),
   totalCount: z.int().positive(),
   pagesCount: z.int().positive(),
