@@ -16,7 +16,7 @@ export const coverSchema = z.object({
   width: z.int().positive(),
   height: z.int().positive(),
   fileSize: z.int().positive(),
-  url: z.string(),
+  url: z.url(),
 })
 
 export const imagesSchema = z.object({
