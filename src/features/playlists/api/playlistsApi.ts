@@ -1,5 +1,4 @@
 import { baseApi } from '@/app/api/baseApi.ts'
-import { AUTH_KEYS } from '@/common/constants'
 import { imagesSchema } from '@/common/schemas'
 import { withZodCatch } from '@/common/utils'
 import { io, Socket } from 'socket.io-client'
@@ -18,13 +17,13 @@ export const playlistsApi = baseApi.injectEndpoints({
       ...withZodCatch(playlistsResponseSchema),
       keepUnusedDataFor: 0, // 👈 cleanup immediately after unmount
       async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
-        // wait for the initial query to resolve before proceeding
+        // Wait for the initial query to resolve before proceeding
         await cacheDataLoaded
-        const token = localStorage.getItem(AUTH_KEYS.accessToken)
+
+        // Create Socket.IO connection to the server
         const socket: Socket = io('https://musicfun.it-incubator.app', {
-          path: '/api/1.0/ws',
+          path: '/api/1.0/ws', // custom path for Socket.IO server (default is '/socket.io/')
           transports: ['websocket'],
-          auth: { token },
         })
 
         socket.on('connect', () => console.log('✅ Connected to server'))
@@ -39,9 +38,9 @@ export const playlistsApi = baseApi.injectEndpoints({
           })
         })
 
-        // cacheEntryRemoved will resolve when the cache subscription is no longer active
+        // CacheEntryRemoved will resolve when the cache subscription is no longer active
         await cacheEntryRemoved
-        // perform cleanup steps once the `cacheEntryRemoved` promise resolves
+        // Perform cleanup steps once the `cacheEntryRemoved` promise resolves
         socket.on('disconnect', () => console.log('❌ Connection destroyed'))
       },
       providesTags: ['Playlist'],
