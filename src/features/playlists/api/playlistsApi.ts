@@ -1,6 +1,7 @@
 import { baseApi } from '@/app/api/baseApi.ts'
 import { imagesSchema } from '@/common/schemas'
 import { withZodCatch } from '@/common/utils'
+import { current } from '@reduxjs/toolkit'
 import { io, Socket } from 'socket.io-client'
 import { playlistCreateResponseSchema, playlistsResponseSchema } from '../model/playlists.schemas.ts'
 import type {
@@ -16,7 +17,7 @@ export const playlistsApi = baseApi.injectEndpoints({
       query: (params: FetchPlaylistsArgs) => ({ url: `playlists`, params }),
       ...withZodCatch(playlistsResponseSchema),
       keepUnusedDataFor: 0, // 👈 cleanup immediately after unmount
-      async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+      async onCacheEntryAdded(_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch }) {
         // Wait for the initial query to resolve before proceeding
         await cacheDataLoaded
 
@@ -29,13 +30,16 @@ export const playlistsApi = baseApi.injectEndpoints({
         socket.on('connect', () => console.log('✅ Connected to server'))
 
         socket.on('tracks.playlist-created', (msg: PlaylistCreatedEvent) => {
+          // 1 variant
           const newPlaylist = msg.payload.data
           updateCachedData((state) => {
+            state.data.pop()
             state.data.unshift(newPlaylist)
-            if (!!state.meta?.totalCount) {
-              state.meta.totalCount += 1
-            }
+            state.meta.totalCount = state.meta.totalCount + 1
+            state.meta.pagesCount = Math.ceil(state.meta.totalCount / state.meta.pageSize)
           })
+          // 2 variant
+          // dispatch(playlistsApi.util.invalidateTags(['Playlist']))
         })
 
         // CacheEntryRemoved will resolve when the cache subscription is no longer active
