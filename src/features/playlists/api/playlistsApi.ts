@@ -8,6 +8,7 @@ import type {
   CreatePlaylistArgs,
   FetchPlaylistsArgs,
   PlaylistCreatedEvent,
+  PlaylistUpdatedEvent,
   UpdatePlaylistArgs,
 } from './playlistsApi.types.ts'
 
@@ -31,9 +32,20 @@ export const playlistsApi = baseApi.injectEndpoints({
           })
         })
 
+        const unsubscribe2 = subscribeToEvent<PlaylistUpdatedEvent>(SOCKET_EVENTS.PLAYLIST_UPDATED, (msg) => {
+          const newPlaylist = msg.payload.data
+          updateCachedData((state) => {
+            const index = state.data.findIndex((playlist) => playlist.id === newPlaylist.id)
+            if (index !== -1) {
+              state.data[index] = { ...state.data[index], ...newPlaylist }
+            }
+          })
+        })
+
         // CacheEntryRemoved will resolve when the cache subscription is no longer active
         await cacheEntryRemoved
         unsubscribe()
+        unsubscribe2()
       },
       providesTags: ['Playlist'],
     }),

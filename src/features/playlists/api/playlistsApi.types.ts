@@ -1,3 +1,4 @@
+import * as z from 'zod'
 import {
   createPlaylistSchema,
   playlistAttributesSchema,
@@ -5,7 +6,6 @@ import {
   type playlistMetaSchema,
   playlistsResponseSchema,
 } from '../model/playlists.schemas.ts'
-import * as z from 'zod'
 
 export type PlaylistMeta = z.infer<typeof playlistMetaSchema>
 export type PlaylistAttributes = z.infer<typeof playlistAttributesSchema>
@@ -35,6 +35,13 @@ export type UpdatePlaylistArgs = {
 // WebSocket Events
 export type PlaylistCreatedEvent = {
   type: 'tracks.playlist-created'
+  payload: {
+    data: PlaylistData
+  }
+}
+
+export type PlaylistUpdatedEvent = {
+  type: 'tracks.playlist-updated'
   payload: {
     data: PlaylistData
   }
