@@ -13,9 +13,20 @@ export const CreatePlaylistForm = () => {
     formState: { errors },
   } = useForm<CreatePlaylistArgs>({
     resolver: zodResolver(createPlaylistSchema),
+    defaultValues: {
+      data: {
+        type: 'playlists',
+        attributes: {
+          title: '',
+          description: '',
+        },
+      },
+    },
   })
 
   const [createPlaylist] = useCreatePlaylistMutation()
+  const titleError = errors.data?.attributes?.title?.message
+  const descriptionError = errors.data?.attributes?.description?.message
 
   const onSubmit: SubmitHandler<CreatePlaylistArgs> = (data) => {
     createPlaylist(data).then(() => {
@@ -26,13 +37,14 @@ export const CreatePlaylistForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Create new playlist</h2>
+      <input type="hidden" {...register('data.type')} />
       <div>
-        <input {...register('title')} placeholder={'title'} />
-        {errors.title && <span className={s.error}>{errors.title.message}</span>}
+        <input {...register('data.attributes.title')} placeholder={'title'} />
+        {titleError && <span className={s.error}>{titleError}</span>}
       </div>
       <div>
-        <input {...register('description')} placeholder={'description'} />
-        {errors.description && <span className={s.error}>{errors.description.message}</span>}
+        <input {...register('data.attributes.description')} placeholder={'description'} />
+        {descriptionError && <span className={s.error}>{descriptionError}</span>}
       </div>
       <button>create playlist</button>
     </form>
