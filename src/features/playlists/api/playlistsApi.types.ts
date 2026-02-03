@@ -1,6 +1,7 @@
 import * as z from 'zod'
 import {
   createPlaylistSchema,
+  createPlaylistFormSchema,
   playlistAttributesSchema,
   playlistDataSchema,
   type playlistMetaSchema,
@@ -25,6 +26,7 @@ export type FetchPlaylistsArgs = {
 }
 
 export type CreatePlaylistArgs = z.infer<typeof createPlaylistSchema>
+export type CreatePlaylistFormValues = z.infer<typeof createPlaylistFormSchema>
 
 export type UpdatePlaylistAttributes = {
   title: string

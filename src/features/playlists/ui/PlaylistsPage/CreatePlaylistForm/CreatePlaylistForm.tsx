@@ -1,9 +1,9 @@
 import { useCreatePlaylistMutation } from '@/features/playlists/api/playlistsApi.ts'
-import type { CreatePlaylistArgs } from '@/features/playlists/api/playlistsApi.types.ts'
-import { createPlaylistSchema } from '@/features/playlists/model/playlists.schemas.ts'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import s from './CreatePlaylistForm.module.css'
+import type { CreatePlaylistFormValues } from '@/features/playlists/api/playlistsApi.types.ts'
+import { createPlaylistFormSchema } from '@/features/playlists/model/playlists.schemas.ts'
 
 export const CreatePlaylistForm = () => {
   const {
@@ -11,11 +11,10 @@ export const CreatePlaylistForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<CreatePlaylistArgs>({
-    resolver: zodResolver(createPlaylistSchema),
+  } = useForm<CreatePlaylistFormValues>({
+    resolver: zodResolver(createPlaylistFormSchema),
     defaultValues: {
       data: {
-        type: 'playlists',
         attributes: {
           title: '',
           description: '',
@@ -28,8 +27,8 @@ export const CreatePlaylistForm = () => {
   const titleError = errors.data?.attributes?.title?.message
   const descriptionError = errors.data?.attributes?.description?.message
 
-  const onSubmit: SubmitHandler<CreatePlaylistArgs> = (data) => {
-    createPlaylist(data).then(() => {
+  const onSubmit: SubmitHandler<CreatePlaylistFormValues> = (formData) => {
+    createPlaylist({ data: { type: 'playlists', attributes: formData.data.attributes } }).then(() => {
       reset()
     })
   }
@@ -37,7 +36,6 @@ export const CreatePlaylistForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Create new playlist</h2>
-      <input type="hidden" {...register('data.type')} />
       <div>
         <input {...register('data.attributes.title')} placeholder={'title'} />
         {titleError && <span className={s.error}>{titleError}</span>}
