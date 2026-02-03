@@ -10,6 +10,7 @@ import type {
   PlaylistCreatedEvent,
   PlaylistUpdatedEvent,
   UpdatePlaylistArgs,
+  UpdatePlaylistFormValues,
 } from './playlistsApi.types.ts'
 
 export const playlistsApi = baseApi.injectEndpoints({
@@ -64,6 +65,7 @@ export const playlistsApi = baseApi.injectEndpoints({
         const args = playlistsApi.util.selectCachedArgsForQuery(getState(), 'fetchPlaylists')
 
         const patchResults: any[] = []
+        const attributes: UpdatePlaylistFormValues = body.data.attributes
 
         args.forEach((arg) => {
           patchResults.push(
@@ -78,7 +80,7 @@ export const playlistsApi = baseApi.injectEndpoints({
                 (state) => {
                   const index = state.data.findIndex((playlist) => playlist.id === playlistId)
                   if (index !== -1) {
-                    state.data[index].attributes = { ...state.data[index].attributes, ...body }
+                    state.data[index].attributes = { ...state.data[index].attributes, ...attributes }
                   }
                 },
               ),

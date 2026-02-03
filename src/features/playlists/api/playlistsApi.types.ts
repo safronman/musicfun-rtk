@@ -26,11 +26,20 @@ export type FetchPlaylistsArgs = {
 
 export type CreatePlaylistArgs = z.infer<typeof createPlaylistSchema>
 
-export type UpdatePlaylistArgs = {
+export type UpdatePlaylistAttributes = {
   title: string
   description: string
   tagIds: string[]
 }
+
+export type UpdatePlaylistArgs = {
+  data: {
+    type: 'playlists'
+    attributes: UpdatePlaylistAttributes
+  }
+}
+
+export type UpdatePlaylistFormValues = UpdatePlaylistAttributes
 
 // WebSocket Events
 export type PlaylistCreatedEvent = {

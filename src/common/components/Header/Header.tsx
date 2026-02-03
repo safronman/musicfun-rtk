@@ -11,7 +11,7 @@ const navItems = [
 ]
 
 export const Header = () => {
-  const { data } = useGetMeQuery()
+  const { data } = useGetMeQuery(undefined)
   const [logout] = useLogoutMutation()
 
   const logoutHandler = () => logout()

@@ -1,5 +1,5 @@
 import { useDeletePlaylistMutation } from '@/features/playlists/api/playlistsApi.ts'
-import type { PlaylistData, UpdatePlaylistArgs } from '@/features/playlists/api/playlistsApi.types.ts'
+import type { PlaylistData, UpdatePlaylistFormValues } from '@/features/playlists/api/playlistsApi.types.ts'
 import { EditPlaylistForm } from '@/features/playlists/ui/PlaylistsPage/EditPlaylistForm/EditPlaylistForm.tsx'
 import { PlaylistItem } from '@/features/playlists/ui/PlaylistsPage/PlaylistItem/PlaylistItem.tsx'
 import { useState } from 'react'
@@ -14,7 +14,7 @@ type Props = {
 export const PlaylistsList = ({ playlists, isPlaylistsLoading }: Props) => {
   const [playlistId, setPlaylistId] = useState<string | null>(null)
 
-  const { register, handleSubmit, reset } = useForm<UpdatePlaylistArgs>()
+  const { register, handleSubmit, reset } = useForm<UpdatePlaylistFormValues>()
 
   const [deletePlaylist] = useDeletePlaylistMutation()
 
@@ -29,7 +29,7 @@ export const PlaylistsList = ({ playlists, isPlaylistsLoading }: Props) => {
       setPlaylistId(playlist.id)
       reset({
         title: playlist.attributes.title,
-        description: playlist.attributes.description,
+        description: playlist.attributes.description ?? '',
         tagIds: playlist.attributes.tags.map((t) => t.id),
       })
     } else {

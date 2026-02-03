@@ -7,7 +7,7 @@ import { PlaylistsList } from '../../../playlists/ui/PlaylistsPage/PlaylistsList
 import s from './ProfilePage.module.css'
 
 export const ProfilePage = () => {
-  const { data: meResponse, isLoading: isMeLoading } = useGetMeQuery()
+  const { data: meResponse, isLoading: isMeLoading } = useGetMeQuery(undefined)
 
   const { data: playlistsResponse, isLoading } = useFetchPlaylistsQuery(
     { userId: meResponse?.userId },

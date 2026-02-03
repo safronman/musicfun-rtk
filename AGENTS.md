@@ -15,6 +15,7 @@
 - `pnpm lint` runs ESLint over the repo.
 - `pnpm preview` serves the production build locally.
 - There is no test script or framework configured yet.
+- After each completed task, run `pnpm build` to confirm there are no TypeScript errors.
 
 ## Coding Style & Naming Conventions
 - TypeScript + React with strict compiler options in `tsconfig.app.json`.
