@@ -6,7 +6,7 @@ export const createPlaylistSchema = z.object({
     .string()
     .min(1, 'The title length must be more than 1 character')
     .max(100, 'The title length must be less than 100 characters'),
-  description: z.string().max(1000, 'The description length must be less than 1000 characters.'),
+  description: z.string().max(1000, 'The description length must be less than 1000 characters.').nullable(),
 })
 
 export const playlistMetaSchema = z.object({
@@ -18,16 +18,17 @@ export const playlistMetaSchema = z.object({
 
 export const playlistAttributesSchema = z.object({
   title: z.string(),
-  description: z.string(),
+  description: z.string().nullish(),
   addedAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
-  order: z.int(),
-  dislikesCount: z.int().nonnegative(),
-  likesCount: z.int().nonnegative(),
+  order: z.number(),
+  dislikesCount: z.number(),
+  likesCount: z.number(),
   tags: z.array(tagSchema),
   images: imagesSchema,
   user: userSchema,
   currentUserReaction: currentUserReactionSchema,
+  tracksCount: z.number(),
 })
 
 export const playlistDataSchema = z.object({
