@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router'
+import { Button } from '@/common/components'
 import { Path } from '@/common/routing'
 import { useGetMeQuery, useLogoutMutation } from '@/features/auth/api/authApi.ts'
 import { Login } from '@/features/auth/ui/Login/Login.tsx'
@@ -32,7 +33,9 @@ export const Header = () => {
       {data && (
         <div className={s.loginContainer}>
           <Link to={Path.Profile}>{data.login}</Link>
-          <button onClick={logoutHandler}>logout</button>
+          <Button type="button" onClick={logoutHandler}>
+            logout
+          </Button>
         </div>
       )}
       {!data && <Login />}
