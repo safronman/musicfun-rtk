@@ -1,10 +1,15 @@
-import {
+﻿import {
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   ShadcnPagination,
 } from '@/common/components'
 import { useDebounceValue } from '@/common/hooks'
@@ -86,17 +91,22 @@ export const PlaylistsPage = () => {
           </PaginationContent>
         </ShadcnPagination>
       )}
-      <label>
-        Show
-        <select value={pageSize} onChange={(e) => changePageSizeHandler(Number(e.target.value))}>
-          {[2, 4, 8, 16, 32].map((size) => (
-            <option value={size} key={size}>
-              {size}
-            </option>
-          ))}
-        </select>
-        per page
-      </label>
+      <div className={'flex items-center gap-2'}>
+        <span>Show</span>
+        <Select value={String(pageSize)} onValueChange={(value) => changePageSizeHandler(Number(value))}>
+          <SelectTrigger className={'w-[80px]'}>
+            <SelectValue placeholder={'Page size'} />
+          </SelectTrigger>
+          <SelectContent>
+            {[2, 4, 8, 16, 32].map((size) => (
+              <SelectItem value={String(size)} key={size}>
+                {size}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <span>per page</span>
+      </div>
     </div>
   )
 }

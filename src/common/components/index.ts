@@ -12,3 +12,4 @@ export {
   PaginationNext,
   PaginationEllipsis,
 } from './pagination'
+export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select'
