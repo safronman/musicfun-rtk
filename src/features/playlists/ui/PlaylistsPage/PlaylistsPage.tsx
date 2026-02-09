@@ -1,5 +1,14 @@
-import { Pagination } from '@/common/components'
+import {
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  ShadcnPagination,
+} from '@/common/components'
 import { useDebounceValue } from '@/common/hooks'
+import { getPaginationPages } from '@/common/utils'
 import { type ChangeEvent, useState } from 'react'
 import { useFetchPlaylistsQuery } from '../../api/playlistsApi.ts'
 import { PlaylistsList } from './PlaylistsList/PlaylistsList.tsx'
@@ -13,6 +22,8 @@ export const PlaylistsPage = () => {
   const debounceSearch = useDebounceValue(search)
 
   const { data, isLoading } = useFetchPlaylistsQuery({ search: debounceSearch, pageNumber: currentPage, pageSize })
+  const pagesCount = data?.meta.pagesCount || 1
+  const pages = getPaginationPages(currentPage, pagesCount)
 
   const changePageSizeHandler = (size: number) => {
     setPageSize(size)
@@ -31,13 +42,61 @@ export const PlaylistsPage = () => {
       <h1>Playlists page</h1>
       <input type="search" placeholder={'Search playlist by title'} onChange={searchPlaylistHandler} />
       <PlaylistsList playlists={data?.data || []} isPlaylistsLoading={isLoading} />
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pagesCount={data?.meta.pagesCount || 1}
-        pageSize={pageSize}
-        changePageSize={changePageSizeHandler}
-      />
+      {pagesCount > 1 && (
+        <ShadcnPagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                className={currentPage === 1 ? 'pointer-events-none opacity-50' : undefined}
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (currentPage > 1) setCurrentPage(currentPage - 1)
+                }}
+              />
+            </PaginationItem>
+            {pages.map((page, idx) => (
+              <PaginationItem key={page === '...' ? `ellipsis-${idx}` : page}>
+                {page === '...' ? (
+                  <PaginationEllipsis />
+                ) : (
+                  <PaginationLink
+                    href="#"
+                    isActive={page === currentPage}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      if (page !== currentPage) setCurrentPage(Number(page))
+                    }}
+                  >
+                    {page}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                className={currentPage === pagesCount ? 'pointer-events-none opacity-50' : undefined}
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (currentPage < pagesCount) setCurrentPage(currentPage + 1)
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </ShadcnPagination>
+      )}
+      <label>
+        Show
+        <select value={pageSize} onChange={(e) => changePageSizeHandler(Number(e.target.value))}>
+          {[2, 4, 8, 16, 32].map((size) => (
+            <option value={size} key={size}>
+              {size}
+            </option>
+          ))}
+        </select>
+        per page
+      </label>
     </div>
   )
 }
