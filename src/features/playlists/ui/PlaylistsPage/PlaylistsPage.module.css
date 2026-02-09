@@ -3,3 +3,11 @@
   flex-direction: column;
   gap: 30px;
 }
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}

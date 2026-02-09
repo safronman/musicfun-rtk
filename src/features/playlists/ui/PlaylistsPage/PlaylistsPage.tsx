@@ -33,8 +33,10 @@ export const PlaylistsPage = () => {
       <h1>Playlists page</h1>
       <input type="search" placeholder={'Search playlist by title'} onChange={searchPlaylistHandler} />
       <PlaylistsList playlists={data?.data || []} isPlaylistsLoading={isLoading} />
-      <PlaylistsPagination currentPage={currentPage} pagesCount={pagesCount} setCurrentPage={setCurrentPage} />
-      <PlaylistsPageSizeSelect pageSize={pageSize} changePageSize={changePageSizeHandler} />
+      <div className={s.controls}>
+        <PlaylistsPagination currentPage={currentPage} pagesCount={pagesCount} setCurrentPage={setCurrentPage} />
+        <PlaylistsPageSizeSelect pageSize={pageSize} changePageSize={changePageSizeHandler} />
+      </div>
     </div>
   )
 }

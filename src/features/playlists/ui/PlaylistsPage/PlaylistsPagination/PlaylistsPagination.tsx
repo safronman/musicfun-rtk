@@ -21,7 +21,7 @@ export const PlaylistsPagination = ({ currentPage, pagesCount, setCurrentPage }:
   if (pagesCount <= 1) return null
 
   return (
-    <ShadcnPagination>
+    <ShadcnPagination className={'mx-0 w-auto justify-start'}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

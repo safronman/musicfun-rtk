@@ -33,6 +33,7 @@
 - Recent commits follow a short `<scope>: <number>` pattern (e.g., `socket: 7`, `zod: 9`). Keep messages concise and consistent with that style unless the team updates conventions.
 - Use Conventional Commits format: `<type>(<scope>): <subject>` (e.g., `docs(agents): add conventional commit rule`).
 - PRs should describe the user-facing change, list notable UI updates, and include screenshots or screen recordings for UI changes.
+- Never commit or push `TASKS.md` / `task.md`; keep task notes local only.
 
 ## Configuration Tips
 - Environment variables live in `.env` and `.env.local`; keep secrets out of commits and prefer `.env.local` for machine-specific values.
