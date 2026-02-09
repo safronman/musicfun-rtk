@@ -5,6 +5,7 @@
 - `src/app/` shared app layers (`api`, `model`, `ui`).
 - `src/features/` feature slices (`auth`, `playlists`, `tracks`) with `ui/`, `api/`, and `model/` as needed.
 - `src/common/` reusable building blocks (components, hooks, utils, types, schemas, routing, socket).
+- Shadcn UI components must be generated directly under `src/common/components` (without `ui` subfolder).
 - `src/assets/` and `public/` hold static assets.
 - Entry points: `src/main.tsx` and `src/index.css`.
 - `lancedb/` exists at repo root and is currently empty.
