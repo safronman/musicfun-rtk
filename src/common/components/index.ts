@@ -14,3 +14,4 @@ export {
 } from './pagination'
 export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select'
 export { Input } from './input'
+export { Card, CardHeader, CardFooter, CardTitle, CardAction, CardDescription, CardContent } from './card'
