@@ -13,3 +13,4 @@ export {
   PaginationEllipsis,
 } from './pagination'
 export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select'
+export { Input } from './input'
