@@ -1,3 +1,4 @@
+import { Button } from '@/common/components'
 import { useUpdatePlaylistMutation } from '@/features/playlists/api/playlistsApi.ts'
 import type { UpdatePlaylistFormValues } from '@/features/playlists/api/playlistsApi.types.ts'
 import { type SubmitHandler, type UseFormHandleSubmit, type UseFormRegister } from 'react-hook-form'
@@ -28,10 +29,10 @@ export const EditPlaylistForm = ({ playlistId, handleSubmit, register, editPlayl
       <div>
         <input {...register('description')} placeholder={'description'} />
       </div>
-      <button type={'submit'}>save</button>
-      <button type={'button'} onClick={() => editPlaylist(null)}>
+      <Button type={'submit'}>save</Button>
+      <Button type={'button'} onClick={() => editPlaylist(null)}>
         cancel
-      </button>
+      </Button>
     </form>
   )
 }

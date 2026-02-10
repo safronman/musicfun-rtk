@@ -1,3 +1,4 @@
+import { Button } from '@/common/components'
 import { PlaylistDescription } from './PlaylistDescription/PlaylistDescription.tsx'
 import { PlaylistCover } from './PlaylistCover/PlaylistCover.tsx'
 import type { PlaylistData } from '../../../api/playlistsApi.types.ts'
@@ -13,8 +14,8 @@ export const PlaylistItem = ({ playlist, editPlaylist, deletePlaylist }: Props) 
     <div>
       <PlaylistCover playlistId={playlist.id} images={playlist.attributes.images} />
       <PlaylistDescription attributes={playlist.attributes} />
-      <button onClick={() => deletePlaylist(playlist.id)}>delete</button>
-      <button onClick={() => editPlaylist(playlist)}>update</button>
+      <Button onClick={() => deletePlaylist(playlist.id)}>delete</Button>
+      <Button onClick={() => editPlaylist(playlist)}>update</Button>
     </div>
   )
 }

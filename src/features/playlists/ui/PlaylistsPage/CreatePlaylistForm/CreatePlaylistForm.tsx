@@ -1,3 +1,4 @@
+import { Button } from '@/common/components'
 import { useCreatePlaylistMutation } from '@/features/playlists/api/playlistsApi.ts'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -44,7 +45,7 @@ export const CreatePlaylistForm = () => {
         <input {...register('data.attributes.description')} placeholder={'description'} />
         {descriptionError && <span className={s.error}>{descriptionError}</span>}
       </div>
-      <button>create playlist</button>
+      <Button>create playlist</Button>
     </form>
   )
 }

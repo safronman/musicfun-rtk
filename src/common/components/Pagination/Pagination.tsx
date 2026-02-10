@@ -1,3 +1,4 @@
+import { Button } from '@/common/components'
 import { getPaginationPages } from '@/common/utils'
 import s from './Pagination.module.css'
 
@@ -23,7 +24,7 @@ export const Pagination = ({ currentPage, setCurrentPage, pagesCount, pageSize, 
               ...
             </span>
           ) : (
-            <button
+            <Button
               key={page}
               className={page === currentPage ? `${s.pageButton} ${s.pageButtonActive}` : s.pageButton}
               onClick={() => page !== currentPage && setCurrentPage(Number(page))}
@@ -31,7 +32,7 @@ export const Pagination = ({ currentPage, setCurrentPage, pagesCount, pageSize, 
               type="button"
             >
               {page}
-            </button>
+            </Button>
           ),
         )}
       </div>

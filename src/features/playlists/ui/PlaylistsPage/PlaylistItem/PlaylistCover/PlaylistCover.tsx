@@ -1,3 +1,4 @@
+import { Button } from '@/common/components'
 import defaultCover from '@/assets/images/default-playlist-cover.png'
 import type { Images } from '@/common/types'
 import { errorToast } from '@/common/utils/errorToast.ts'
@@ -44,7 +45,7 @@ export const PlaylistCover = ({ images, playlistId }: Props) => {
     <div>
       <img src={src} alt={'cover'} width={'100px'} className={s.cover} />
       <input type="file" accept="image/jpeg,image/png,image/gif" onChange={uploadCoverHandler} />
-      {originalCover && <button onClick={() => deleteCoverHandler()}>delete cover</button>}
+      {originalCover && <Button onClick={() => deleteCoverHandler()}>delete cover</Button>}
     </div>
   )
 }

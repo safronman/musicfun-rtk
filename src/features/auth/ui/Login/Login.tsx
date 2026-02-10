@@ -1,3 +1,4 @@
+import { Button } from '@/common/components'
 import { Path } from '@/common/routing'
 import { useLoginMutation } from '../../api/authApi.ts'
 
@@ -31,8 +32,8 @@ export const Login = () => {
   }
 
   return (
-    <button type={'button'} onClick={loginHandler}>
+    <Button type={'button'} onClick={loginHandler}>
       login
-    </button>
+    </Button>
   )
 }
