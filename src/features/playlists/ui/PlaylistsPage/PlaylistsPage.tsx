@@ -1,3 +1,4 @@
+import { Input } from '@/common/components'
 import { useDebounceValue } from '@/common/hooks'
 import { type ChangeEvent, useState } from 'react'
 import { useFetchPlaylistsQuery } from '../../api/playlistsApi.ts'
@@ -31,7 +32,7 @@ export const PlaylistsPage = () => {
   return (
     <div className={s.container}>
       <h1>Playlists page</h1>
-      <input type="search" placeholder={'Search playlist by title'} onChange={searchPlaylistHandler} />
+      <Input type="search" placeholder={'Search playlist by title'} onChange={searchPlaylistHandler} />
       <PlaylistsList playlists={data?.data || []} isPlaylistsLoading={isLoading} />
       <div className={s.controls}>
         <PlaylistsPagination currentPage={currentPage} pagesCount={pagesCount} setCurrentPage={setCurrentPage} />
