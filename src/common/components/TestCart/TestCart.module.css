@@ -1,0 +1,61 @@
+.card {
+  margin: 24px auto 0;
+  height: 350px;
+  width: 300px;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 4px 20px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cover {
+  height: 170px;
+  width: 280px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.title {
+  margin: 20px 0 0 10px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+.description {
+  margin: 20px 0 0 10px;
+  width: 260px;
+  color: #abb3ba;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.actions {
+  margin: 19px 0 0 10px;
+  display: flex;
+  gap: 12px;
+}
+
+.primaryButton,
+.secondaryButton {
+  height: 30px;
+  width: 86px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.primaryButton {
+  border: none;
+  background-color: #4e71fe;
+  color: #fff;
+}
+
+.secondaryButton {
+  border: 2px solid #4e71fe;
+  background-color: transparent;
+  color: #4e71fe;
+}
