@@ -1,5 +1,5 @@
-import { TestCart } from '@/common/components'
+import { TestCard } from '@/pages/TestCard.tsx'
 
 export const CardPage = () => {
-  return <TestCart />
+  return <TestCard />
 }

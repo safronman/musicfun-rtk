@@ -1,7 +1,7 @@
 import testCartCover from '@/assets/images/test-cart-cover.png'
 import styles from './TestCart.module.css'
 
-export const TestCart = () => {
+export const TestCard = () => {
   return (
     <section className={styles.card}>
       <img alt="Test cart cover" className={styles.cover} src={testCartCover} />

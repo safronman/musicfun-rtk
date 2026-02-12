@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router'
 import { PageNotFound } from '@/common/components'
 import { CardPage } from '@/app/ui/CardPage.tsx'
-import { GlassPage } from '@/app/ui/GlassPage.tsx'
+import { GlassPage } from '@/pages/GlassPage.tsx'
 import { MainPage } from '@/app/ui/MainPage.tsx'
 import { PlaylistsPage } from '@/features/playlists/ui/PlaylistsPage/PlaylistsPage.tsx'
 import { TracksPage } from '@/features/tracks/ui/TracksPage/TracksPage.tsx'
