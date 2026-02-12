@@ -40,6 +40,7 @@
 .previewRow {
   margin-top: 134px;
   display: flex;
+  justify-content: center;
   gap: 60px;
 }
 
@@ -52,7 +53,6 @@
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  box-shadow: 8px 8px 16px 0 rgba(81, 91, 117, 0.25);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -62,14 +62,11 @@
 }
 
 .previewButton:focus-visible {
-  outline: 2px solid #141414;
-  outline-offset: 2px;
+  outline: none;
 }
 
 .previewButtonActive {
-  outline: 2px solid #141414;
-  outline-offset: 2px;
-  box-shadow: 10px 10px 18px 0 rgba(81, 91, 117, 0.3);
+  box-shadow: 8px 8px 16px 0 rgba(81, 91, 117, 0.25);
 }
 
 .previewImage {
