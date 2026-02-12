@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router'
 import { PageNotFound } from '@/common/components'
+import { CardPage } from '@/app/ui/CardPage.tsx'
 import { GlassPage } from '@/app/ui/GlassPage.tsx'
 import { MainPage } from '@/app/ui/MainPage.tsx'
 import { PlaylistsPage } from '@/features/playlists/ui/PlaylistsPage/PlaylistsPage.tsx'
@@ -9,6 +10,7 @@ import { OAuthCallback } from '@/features/auth/ui/OAuthCallback/OAuthCallback.ts
 
 export const Path = {
   Main: '/',
+  Card: '/card',
   Glass: '/glass',
   Playlists: '/playlists',
   Tracks: '/tracks',
@@ -20,6 +22,7 @@ export const Path = {
 export const Routing = () => (
   <Routes>
     <Route path={Path.Main} element={<MainPage />} />
+    <Route path={Path.Card} element={<CardPage />} />
     <Route path={Path.Glass} element={<GlassPage />} />
     <Route path={Path.Playlists} element={<PlaylistsPage />} />
     <Route path={Path.Tracks} element={<TracksPage />} />
