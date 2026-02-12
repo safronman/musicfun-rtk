@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Music2 } from 'lucide-react'
 
 import { Button } from '@/common/components'
+
+const variants = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] as const
+const sizes = ['default', 'xs', 'sm', 'lg'] as const
+const iconSizes = ['icon-xs', 'icon-sm', 'icon', 'icon-lg'] as const
 
 const meta = {
   title: 'Example/Button',
@@ -36,17 +41,51 @@ type Story = StoryObj<typeof meta>
 
 export const Playground: Story = {}
 
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    children: 'Secondary',
+export const Variants: Story = {
+  render: args => (
+    <div className='grid grid-cols-2 gap-3 sm:grid-cols-3'>
+      {variants.map(variant => (
+        <Button key={variant} {...args} variant={variant}>
+          {variant}
+        </Button>
+      ))}
+    </div>
+  ),
+  parameters: {
+    layout: 'padded',
   },
 }
 
-export const Destructive: Story = {
+export const Sizes: Story = {
+  render: args => (
+    <div className='flex flex-wrap items-center gap-3'>
+      {sizes.map(size => (
+        <Button key={size} {...args} size={size}>
+          {size}
+        </Button>
+      ))}
+    </div>
+  ),
+  parameters: {
+    layout: 'padded',
+  },
+}
+
+export const IconSizes: Story = {
+  render: args => (
+    <div className='flex flex-wrap items-center gap-3'>
+      {iconSizes.map(size => (
+        <Button key={size} {...args} size={size} aria-label={size}>
+          <Music2 />
+        </Button>
+      ))}
+    </div>
+  ),
   args: {
-    variant: 'destructive',
-    children: 'Delete',
+    children: undefined,
+  },
+  parameters: {
+    layout: 'padded',
   },
 }
 
@@ -55,4 +94,12 @@ export const Disabled: Story = {
     disabled: true,
     children: 'Disabled',
   },
+}
+
+export const AsChildLink: Story = {
+  render: args => (
+    <Button {...args} asChild>
+      <a href='#'>Open Playlist</a>
+    </Button>
+  ),
 }
