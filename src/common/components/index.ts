@@ -15,3 +15,4 @@ export {
 export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select'
 export { Input } from './input'
 export { Card, CardHeader, CardFooter, CardTitle, CardAction, CardDescription, CardContent } from './card'
+export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from './carousel'
