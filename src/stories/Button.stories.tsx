@@ -42,9 +42,9 @@ type Story = StoryObj<typeof meta>
 export const Playground: Story = {}
 
 export const Variants: Story = {
-  render: args => (
-    <div className='grid grid-cols-2 gap-3 sm:grid-cols-3'>
-      {variants.map(variant => (
+  render: (args) => (
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      {variants.map((variant) => (
         <Button key={variant} {...args} variant={variant}>
           {variant}
         </Button>
@@ -57,9 +57,9 @@ export const Variants: Story = {
 }
 
 export const Sizes: Story = {
-  render: args => (
-    <div className='flex flex-wrap items-center gap-3'>
-      {sizes.map(size => (
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-3">
+      {sizes.map((size) => (
         <Button key={size} {...args} size={size}>
           {size}
         </Button>
@@ -72,9 +72,9 @@ export const Sizes: Story = {
 }
 
 export const IconSizes: Story = {
-  render: args => (
-    <div className='flex flex-wrap items-center gap-3'>
-      {iconSizes.map(size => (
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-3">
+      {iconSizes.map((size) => (
         <Button key={size} {...args} size={size} aria-label={size}>
           <Music2 />
         </Button>
@@ -97,9 +97,9 @@ export const Disabled: Story = {
 }
 
 export const AsChildLink: Story = {
-  render: args => (
+  render: (args) => (
     <Button {...args} asChild>
-      <a href='#'>Open Playlist</a>
+      <a href="#">Open Playlist</a>
     </Button>
   ),
 }
