@@ -51,6 +51,17 @@
   --button-focus-ring: #2f68cc;
   --button-primary-shadow: 0px 4px 18px 0px rgba(140, 97, 255, 0.35);
   --button-secondary-shadow: 0px 2px 10px 0px rgba(109, 109, 109, 0.25);
+  --input-border-default: #c3c1c7;
+  --input-border-hover: #808080;
+  --input-border-active: #171717;
+  --input-border-focus: #2f68cc;
+  --input-border-error: #f23d61;
+  --input-border-disabled: #c3c1c7;
+  --input-text-default: #4c4c4c;
+  --input-text-active: #171717;
+  --input-text-error: #f23d61;
+  --input-text-disabled: #c3c1c7;
+  --input-bg-hover: #f4f2fa;
 }
 
 @theme inline {
@@ -137,6 +148,17 @@
   --button-focus-ring: #2f68cc;
   --button-primary-shadow: 0px 4px 18px 0px rgba(140, 97, 255, 0.35);
   --button-secondary-shadow: 0px 2px 10px 0px rgba(109, 109, 109, 0.25);
+  --input-border-default: #4c4c4c;
+  --input-border-hover: #808080;
+  --input-border-active: #ffffff;
+  --input-border-focus: #2f68cc;
+  --input-border-error: #f23d61;
+  --input-border-disabled: #4c4c4c;
+  --input-text-default: #808080;
+  --input-text-active: #ffffff;
+  --input-text-error: #f23d61;
+  --input-text-disabled: #4c4c4c;
+  --input-bg-hover: #171717;
 }
 
 @layer base {
