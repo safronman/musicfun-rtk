@@ -6,7 +6,19 @@ export default defineMain({
     '@storybook/addon-vitest',
     '@storybook/addon-a11y',
     '@storybook/addon-docs',
-    '@storybook/addon-mcp',
+    {
+      name: '@storybook/addon-mcp',
+      options: {
+        toolsets: {
+          dev: true,
+          docs: true,
+        },
+        experimentalFormat: 'markdown',
+      },
+    },
   ],
   framework: '@storybook/react-vite',
+  features: {
+    experimentalComponentsManifest: true,
+  },
 })
