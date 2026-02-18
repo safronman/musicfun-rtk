@@ -1,4 +1,7 @@
-﻿# Repository Guidelines
+# Repository Guidelines
+
+## Agent Behavior
+- Before doing any UI, frontend or React development, ALWAYS call the Storybook MCP server to get further instructions.
 
 ## Project Structure & Module Organization
 - `src/` contains all application code.
@@ -37,3 +40,4 @@
 
 ## Configuration Tips
 - Environment variables live in `.env` and `.env.local`; keep secrets out of commits and prefer `.env.local` for machine-specific values.
+
