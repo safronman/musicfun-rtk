@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import preview from '../../.storybook/preview'
 import { Music2 } from 'lucide-react'
 
 import { Button } from '@/common/components'
@@ -7,7 +7,7 @@ const variants = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'li
 const sizes = ['default', 'xs', 'sm', 'lg'] as const
 const iconSizes = ['icon-xs', 'icon-sm', 'icon', 'icon-lg'] as const
 
-const meta = {
+const meta = preview.meta({
   title: 'Example/Button',
   component: Button,
   parameters: {
@@ -34,14 +34,11 @@ const meta = {
     disabled: false,
     asChild: false,
   },
-} satisfies Meta<typeof Button>
+})
 
-export default meta
-type Story = StoryObj<typeof meta>
+export const Playground = meta.story()
 
-export const Playground: Story = {}
-
-export const Variants: Story = {
+export const Variants = meta.story({
   render: (args) => (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
       {variants.map((variant) => (
@@ -54,9 +51,9 @@ export const Variants: Story = {
   parameters: {
     layout: 'padded',
   },
-}
+})
 
-export const Sizes: Story = {
+export const Sizes = meta.story({
   render: (args) => (
     <div className="flex flex-wrap items-center gap-3">
       {sizes.map((size) => (
@@ -69,9 +66,9 @@ export const Sizes: Story = {
   parameters: {
     layout: 'padded',
   },
-}
+})
 
-export const IconSizes: Story = {
+export const IconSizes = meta.story({
   render: (args) => (
     <div className="flex flex-wrap items-center gap-3">
       {iconSizes.map((size) => (
@@ -87,19 +84,19 @@ export const IconSizes: Story = {
   parameters: {
     layout: 'padded',
   },
-}
+})
 
-export const Disabled: Story = {
+export const Disabled = meta.story({
   args: {
     disabled: true,
     children: 'Disabled',
   },
-}
+})
 
-export const AsChildLink: Story = {
+export const AsChildLink = meta.story({
   render: (args) => (
     <Button {...args} asChild>
       <a href="#">Open Playlist</a>
     </Button>
   ),
-}
+})
